@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+    <script>
+      // trigger a download
+      function downloadURL(url, name) {
+        let link = document.createElement("a");
+        link.download = name;
+        link.href = url;
+        link.click();
+      }
+
+      function onDownloadTxt() {
+        let content = "Hello world!";
+        let dataUrl = `data:text/plain;,${content}`;
+        downloadURL(dataUrl, "download.txt");
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="onDownloadTxt();">download txt</button>
+    <p>
+      This name should be copied if we click the download button in selenium:
+      <br />
+      <span id="name" class="red">Foo Bar</span>
+    </p>
+  </body>
+</html>
