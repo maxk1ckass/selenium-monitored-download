@@ -5,29 +5,64 @@
       .red {
         color: red;
       }
+
+      .blue {
+        color: blue;
+      }
     </style>
     <script>
+      let counter = 1;
+
       // trigger a download
       function downloadURL(url, name) {
         let link = document.createElement("a");
         link.download = name;
         link.href = url;
         link.click();
+
+        // to refresh the page content
+        refreshContent();
       }
 
+      // to refresh the download content
+      function refreshContent() {
+        document.querySelector(
+          "#file-content"
+        ).innerHTML = `Text content ${counter}.`;
+        document.querySelector("#name").innerHTML = `Name ${counter}`;
+        ++counter;
+      }
+
+      // the button click handler
       function onDownloadTxt() {
-        let content = "Hello world!";
+        let content = document.querySelector("#file-content").innerHTML;
         let dataUrl = `data:text/plain;,${content}`;
         downloadURL(dataUrl, "download.txt");
       }
+
+      window.onload = () => {
+        refreshContent();
+      };
     </script>
   </head>
-  <body>
+  <body oncopy="return false;" oncut="return false;">
+    <h3>Download text file sample webpage</h3>
+    <h4 class="red">Copy in this page is disabled.</h4>
     <button onclick="onDownloadTxt();">download txt</button>
     <p>
-      This name should be copied if we click the download button in selenium:
+      <span
+        >File content of the txt file to be downloaded if we click the download
+        button WITHOUT selenium:</span
+      >
       <br />
-      <span id="name" class="red">Foo Bar</span>
+      <span id="file-content" class="blue"></span>
+      <hr />
+      <span
+        >The following name should be injected if we click the download button
+        in selenium:</span
+      >
+      <br />
+      <span id="name" class="blue"></span>
     </p>
   </body>
 </html>
