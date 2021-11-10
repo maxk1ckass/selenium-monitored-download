@@ -11,7 +11,7 @@
       }
     </style>
     <script>
-      let counter = 1;
+      let counter = 0;
 
       // trigger a download
       function downloadURL(url, name) {
@@ -21,16 +21,18 @@
         link.click();
 
         // to refresh the page content
-        refreshContent();
+        refreshContent(1000);
       }
 
       // to refresh the download content
-      function refreshContent() {
-        document.querySelector(
-          "#file-content"
-        ).innerHTML = `Text content ${counter}.`;
-        document.querySelector("#name").innerHTML = `Name ${counter}`;
-        ++counter;
+      function refreshContent(delay = 50) {
+        window.setTimeout(() => {
+          ++counter;
+          document.querySelector(
+            "#file-content"
+          ).innerHTML = `Content ${counter}.`;
+          document.querySelector("#name").innerHTML = `Name ${counter}`;
+        }, delay);
       }
 
       // the button click handler
