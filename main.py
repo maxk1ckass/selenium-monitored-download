@@ -7,6 +7,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 #from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 from pathlib import Path
 import csv
@@ -67,8 +69,13 @@ def open_browser():
     chrome_options = webdriver.ChromeOptions()
     prefs = {"download.default_directory": DOWNLOAD_TEMP_FOLDER}
     chrome_options.add_experimental_option("prefs", prefs)
+
     # chrome_options.add_experimental_option("detach", True)
-    driver = webdriver.Chrome(options=chrome_options)
+    # driver = webdriver.Chrome(options=chrome_options, executable_path='C:/path/to/chromedriver.exe')
+
+    driver_service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=driver_service, options=chrome_options)
+
     return driver
 
 
